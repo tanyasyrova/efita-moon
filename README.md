@@ -1,24 +1,69 @@
-# README
+# EFITA MOON
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+EFITA MOON — сайт-каталог авторских украшений ручной работы.
 
-Things you may want to cover:
+## Цель проекта
 
-* Ruby version
+Проект создается как реальный сайт бренда EFITA MOON и одновременно как учебный Ruby on Rails проект.
 
-* System dependencies
+## Технологический стек
 
-* Configuration
+- Ruby 3.3.6
+- Rails 8.1.3
+- PostgreSQL
+- ERB
+- Hotwire
+- Обычный CSS
+- Active Storage планируется для фотографий
+- has_secure_password планируется для администратора
 
-* Database creation
+## Возможности MVP
 
-* Database initialization
+- Главная страница
+- Каталог украшений
+- Категории
+- Страница украшения
+- Несколько фотографий
+- Статусы наличия
+- Форма заявки
+- Ручная административная часть
+- Страница о бренде
 
-* How to run the test suite
+## Планируемые сущности
 
-* Services (job queues, cache servers, search engines, etc.)
+- Product
+- Category
+- OrderRequest
+- Admin
 
-* Deployment instructions
+## Статусы Product
 
-* ...
+- available
+- made_to_order
+- sold_out
+
+## Текущий статус
+
+Базовое Rails-приложение создано. Предметная разработка еще не началась.
+
+Проект находится в активной разработке.
+
+## Локальный запуск
+
+Установить зависимости:
+
+```bash
+bundle install
+```
+
+Создать базу данных:
+
+```bash
+bin/rails db:create
+```
+
+Запустить сервер:
+
+```bash
+bin/rails server
+```
