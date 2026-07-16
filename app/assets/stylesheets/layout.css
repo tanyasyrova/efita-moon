@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  background: var(--color-page);
+}
+
+a {
+  color: inherit;
+}
+
+.page-container {
+  width: min(100% - 32px, var(--max-width));
+  margin: 0 auto;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  background: rgba(247, 243, 236, 0.96);
+}
+
+.site-header__inner {
+  width: min(100% - 32px, var(--max-width));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-logo {
+  flex: 0 0 auto;
+  color: var(--color-text);
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+}
+
+.site-nav__link {
+  color: var(--color-muted);
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.site-nav__link:hover {
+  color: var(--color-text);
+}
+
+.site-nav__link--disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+.site-main {
+  min-height: calc(100vh - 180px);
+}
+
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-muted);
+}
+
+.site-footer__inner {
+  width: min(100% - 32px, var(--max-width));
+  margin: 0 auto;
+  padding: 28px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 18px;
+  border: 1px solid var(--color-accent-dark);
+  border-radius: var(--radius-small);
+  font-size: 15px;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.button--primary {
+  background: var(--color-text);
+  color: var(--color-surface);
+}
+
+.button--secondary {
+  background: transparent;
+  color: var(--color-text);
+}
+
+@media (max-width: 680px) {
+  .site-header__inner {
+    min-height: auto;
+    padding: 18px 0;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
+  }
+
+  .site-footer__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
