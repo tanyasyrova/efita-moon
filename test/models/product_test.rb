@@ -73,13 +73,14 @@ class ProductTest < ActiveSupport::TestCase
     assert build_product(price: 0).valid?
   end
 
-  test "allows available and unavailable statuses" do
+  test "allows available, made_to_order, and unavailable statuses" do
     assert build_product(status: "available").valid?
+    assert build_product(status: "made_to_order").valid?
     assert build_product(status: "unavailable").valid?
   end
 
   test "rejects invalid status" do
-    product = build_product(status: "made_to_order")
+    product = build_product(status: "archived")
 
     assert_not product.valid?
     assert_includes product.errors[:status], "is not included in the list"
@@ -116,14 +117,21 @@ class ProductTest < ActiveSupport::TestCase
 
   test "status enum methods and scopes" do
     available_product = create_product(slug: "available-necklace", status: "available")
+    made_to_order_product = create_product(slug: "made-to-order-necklace", status: "made_to_order")
     unavailable_product = create_product(slug: "unavailable-necklace", status: "unavailable")
 
     assert_predicate available_product, :available?
+    assert_predicate made_to_order_product, :made_to_order?
     assert_predicate unavailable_product, :unavailable?
     assert_includes Product.available, available_product
+    assert_not_includes Product.available, made_to_order_product
     assert_not_includes Product.available, unavailable_product
+    assert_includes Product.made_to_order, made_to_order_product
+    assert_not_includes Product.made_to_order, available_product
+    assert_not_includes Product.made_to_order, unavailable_product
     assert_includes Product.unavailable, unavailable_product
     assert_not_includes Product.unavailable, available_product
+    assert_not_includes Product.unavailable, made_to_order_product
   end
 
   private

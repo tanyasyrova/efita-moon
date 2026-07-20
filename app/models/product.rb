@@ -5,6 +5,7 @@ class Product < ApplicationRecord
 
   enum :status, {
     available: "available",
+    made_to_order: "made_to_order",
     unavailable: "unavailable"
   }, validate: true
 

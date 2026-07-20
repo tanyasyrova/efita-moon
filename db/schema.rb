@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_16_133633) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_20_173537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -46,7 +46,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_16_133633) do
     t.index ["slug"], name: "index_products_on_slug", unique: true
     t.index ["status"], name: "index_products_on_status"
     t.check_constraint "price >= 0::numeric", name: "products_price_non_negative"
-    t.check_constraint "status::text = ANY (ARRAY['available'::character varying, 'unavailable'::character varying]::text[])", name: "products_status_allowed"
+    t.check_constraint "status::text = ANY (ARRAY['available'::character varying, 'made_to_order'::character varying, 'unavailable'::character varying]::text[])", name: "products_status_allowed"
   end
 
   add_foreign_key "products", "categories"

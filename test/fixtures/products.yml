@@ -21,3 +21,14 @@ two:
   price: 0
   status: unavailable
   published: false
+
+three:
+  category: one
+  title: Серебряная луна
+  slug: silver-moon-choker
+  description: Чокер, который можно повторить под заказ.
+  size: 36 см
+  materials: Стекло, ювелирный сплав
+  price: 2500
+  status: made_to_order
+  published: true
