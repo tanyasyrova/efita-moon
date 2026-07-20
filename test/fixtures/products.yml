@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  category: one
+  title: Лунный свет
+  slug: moonlight-choker
+  description: Украшение ручной работы.
+  size: 36 см + удлинитель 5 см
+  materials: Гематит, горный хрусталь
+  price: 9.99
+  status: available
+  published: true
+
+two:
+  category: two
+  title: Тихий блеск
+  slug: quiet-shine-earrings
+  description: Серьги ручной работы.
+  size:
+  materials:
+  price: 0
+  status: unavailable
+  published: false

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Чокеры
+  slug: chokers
+  position: 1
+  active: true
+
+two:
+  name: Серьги
+  slug: earrings
+  position: 2
+  active: true
