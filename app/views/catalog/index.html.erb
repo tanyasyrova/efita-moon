@@ -1,0 +1,38 @@
+<% content_for :title, "Каталог — EFITA MOON" %>
+
+<h1>Каталог</h1>
+
+<section>
+  <h2>Категории</h2>
+
+  <% if @categories.any? %>
+    <nav aria-label="Категории каталога">
+      <ul>
+        <% @categories.each do |category| %>
+          <li>
+            <%= link_to category.name, catalog_category_path(category.slug) %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  <% else %>
+    <p>Категории пока не добавлены.</p>
+  <% end %>
+</section>
+
+<section>
+  <h2>Украшения</h2>
+
+  <% if @products.any? %>
+    <% @products.each do |product| %>
+      <article>
+        <h3><%= link_to product.title, product_path(product.slug) %></h3>
+        <p>Категория: <%= product.category.name %></p>
+        <p>Цена: <%= product_price(product) %></p>
+        <p>Статус: <%= product_status_label(product) %></p>
+      </article>
+    <% end %>
+  <% else %>
+    <p>В каталоге пока нет украшений.</p>
+  <% end %>
+</section>

@@ -115,6 +115,67 @@ class ProductTest < ActiveSupport::TestCase
     assert_not_includes Product.published, draft_product
   end
 
+  test "publicly_visible includes published products from active categories with any status" do
+    active_category = create_category
+    available_product = create_product(
+      category: active_category,
+      slug: "visible-available-necklace",
+      status: "available",
+      published: true
+    )
+    made_to_order_product = create_product(
+      category: active_category,
+      slug: "visible-made-to-order-necklace",
+      status: "made_to_order",
+      published: true
+    )
+    unavailable_product = create_product(
+      category: active_category,
+      slug: "visible-unavailable-necklace",
+      status: "unavailable",
+      published: true
+    )
+
+    assert_includes Product.publicly_visible, available_product
+    assert_includes Product.publicly_visible, made_to_order_product
+    assert_includes Product.publicly_visible, unavailable_product
+  end
+
+  test "publicly_visible excludes unpublished products and products from inactive categories" do
+    active_category = create_category
+    inactive_category = create_category(active: false)
+    unpublished_product = create_product(
+      category: active_category,
+      slug: "hidden-draft-necklace",
+      published: false
+    )
+    inactive_category_product = create_product(
+      category: inactive_category,
+      slug: "hidden-category-necklace",
+      published: true
+    )
+
+    assert_not_includes Product.publicly_visible, unpublished_product
+    assert_not_includes Product.publicly_visible, inactive_category_product
+  end
+
+  test "newest_first sorts by created_at descending and id descending" do
+    older_product = create_product(slug: "older-necklace")
+    newer_lower_id_product = create_product(slug: "newer-lower-id-necklace")
+    newer_higher_id_product = create_product(slug: "newer-higher-id-necklace")
+    older_product.update_columns(created_at: 2.days.ago, updated_at: 2.days.ago)
+    newer_lower_id_product.update_columns(created_at: 1.day.ago, updated_at: 1.day.ago)
+    newer_higher_id_product.update_columns(created_at: 1.day.ago, updated_at: 1.day.ago)
+
+    ordered_products = Product.where(id: [
+      older_product.id,
+      newer_lower_id_product.id,
+      newer_higher_id_product.id
+    ]).newest_first
+
+    assert_equal [ newer_higher_id_product, newer_lower_id_product, older_product ], ordered_products.to_a
+  end
+
   test "status enum methods and scopes" do
     available_product = create_product(slug: "available-necklace", status: "available")
     made_to_order_product = create_product(slug: "made-to-order-necklace", status: "made_to_order")

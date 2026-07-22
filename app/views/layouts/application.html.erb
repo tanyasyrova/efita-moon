@@ -30,8 +30,7 @@
 
         <nav class="site-nav" aria-label="Основная навигация">
           <%= link_to "Главная", root_path, class: "site-nav__link" %>
-          <%# Catalog route will be added after Product and Category are introduced. %>
-          <span class="site-nav__link site-nav__link--disabled" aria-disabled="true">Каталог</span>
+          <%= link_to "Каталог", catalog_path, class: "site-nav__link" %>
           <%= link_to "О бренде", about_path, class: "site-nav__link" %>
         </nav>
       </div>

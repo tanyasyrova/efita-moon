@@ -1,0 +1,21 @@
+<% content_for :title, "#{@category.name} — EFITA MOON" %>
+
+<%= link_to "Вернуться в каталог", catalog_path %>
+
+<h1><%= @category.name %></h1>
+
+<section>
+  <h2>Украшения</h2>
+
+  <% if @products.any? %>
+    <% @products.each do |product| %>
+      <article>
+        <h3><%= link_to product.title, product_path(product.slug) %></h3>
+        <p>Цена: <%= product_price(product) %></p>
+        <p>Статус: <%= product_status_label(product) %></p>
+      </article>
+    <% end %>
+  <% else %>
+    <p>В этой категории пока нет украшений.</p>
+  <% end %>
+</section>

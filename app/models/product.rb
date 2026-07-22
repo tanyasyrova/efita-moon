@@ -17,4 +17,8 @@ class Product < ApplicationRecord
   validates :published, inclusion: { in: [ true, false ] }
 
   scope :published, -> { where(published: true) }
+  scope :publicly_visible, lambda {
+    published.joins(:category).merge(Category.active)
+  }
+  scope :newest_first, -> { order(created_at: :desc, id: :desc) }
 end

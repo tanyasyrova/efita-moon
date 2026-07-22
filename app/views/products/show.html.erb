@@ -1,0 +1,26 @@
+<% content_for :title, "#{@product.title} — EFITA MOON" %>
+
+<%= link_to "Вернуться в каталог", catalog_path %>
+
+<article>
+  <h1><%= @product.title %></h1>
+
+  <p><%= @product.description %></p>
+
+  <% if @product.materials.present? %>
+    <p>Материалы: <%= @product.materials %></p>
+  <% end %>
+
+  <% if @product.size.present? %>
+    <p>Размер: <%= @product.size %></p>
+  <% end %>
+
+  <p>Цена: <%= product_price(@product) %></p>
+
+  <p>Статус: <%= product_status_label(@product) %></p>
+
+  <p>
+    Категория:
+    <%= link_to @product.category.name, catalog_category_path(@product.category.slug) %>
+  </p>
+</article>
