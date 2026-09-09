@@ -1,0 +1,16 @@
+<article class="product-card">
+  <p class="product-card__number"><%= format("%02d", index + 1) %></p>
+
+  <div class="product-card__body">
+    <h3 class="product-card__title">
+      <%= link_to product.title, product_path(product.slug), class: "product-card__link" %>
+    </h3>
+
+    <p class="product-card__category"><%= product.category.name %></p>
+  </div>
+
+  <div class="product-card__meta">
+    <p class="product-card__price"><%= product_price(product) %></p>
+    <%= render "products/status", product: product %>
+  </div>
+</article>

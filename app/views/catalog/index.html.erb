@@ -1,38 +1,43 @@
 <% content_for :title, "Каталог — EFITA MOON" %>
 
-<h1>Каталог</h1>
+<div class="catalog-page">
+  <header class="catalog-page__intro">
+    <h1 class="catalog-page__title">Каталог</h1>
 
-<section>
-  <h2>Категории</h2>
+    <p class="catalog-page__lead">
+      Украшения, собранные вручную и созданные маленькими сериями.
+    </p>
+  </header>
 
-  <% if @categories.any? %>
-    <nav aria-label="Категории каталога">
-      <ul>
-        <% @categories.each do |category| %>
-          <li>
-            <%= link_to category.name, catalog_category_path(category.slug) %>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-  <% else %>
-    <p>Категории пока не добавлены.</p>
-  <% end %>
-</section>
+  <section class="catalog-page__categories">
+    <h2 class="visually-hidden">Категории</h2>
 
-<section>
-  <h2>Украшения</h2>
-
-  <% if @products.any? %>
-    <% @products.each do |product| %>
-      <article>
-        <h3><%= link_to product.title, product_path(product.slug) %></h3>
-        <p>Категория: <%= product.category.name %></p>
-        <p>Цена: <%= product_price(product) %></p>
-        <p>Статус: <%= product_status_label(product) %></p>
-      </article>
+    <% if @categories.any? %>
+      <nav class="category-nav" aria-label="Категории каталога">
+        <ul class="category-nav__list">
+          <% @categories.each do |category| %>
+            <li class="category-nav__item">
+              <%= link_to category.name, catalog_category_path(category.slug), class: "category-nav__link" %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+    <% else %>
+      <p class="empty-state">Категории пока не добавлены.</p>
     <% end %>
-  <% else %>
-    <p>В каталоге пока нет украшений.</p>
-  <% end %>
-</section>
+  </section>
+
+  <section class="catalog-page__products">
+    <h2 class="catalog-page__section-title">Украшения</h2>
+
+    <% if @products.any? %>
+      <div class="catalog-grid">
+        <% @products.each_with_index do |product, index| %>
+          <%= render "products/card", product: product, index: index %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="empty-state">В каталоге пока нет украшений.</p>
+    <% end %>
+  </section>
+</div>

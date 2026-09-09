@@ -5,13 +5,15 @@ class CatalogControllerTest < ActionDispatch::IntegrationTest
     get catalog_path
 
     assert_response :success
+    assert_select ".catalog-page"
+    assert_select ".catalog-page__intro"
     assert_select "h1", "Каталог"
   end
 
   test "index shows active categories and hides inactive categories" do
     get catalog_path
 
-    assert_select "nav[aria-label='Категории каталога']"
+    assert_select ".category-nav[aria-label='Категории каталога']"
     assert_select "a[href=?]", catalog_category_path(categories(:chokers).slug), text: "Чокеры"
     assert_select "a[href=?]", catalog_category_path(categories(:earrings).slug), text: "Серьги"
     assert_no_match categories(:anklets).name, response.body
@@ -24,6 +26,8 @@ class CatalogControllerTest < ActionDispatch::IntegrationTest
     assert_match products(:silver_moon_choker).title, response.body
     assert_match products(:sold_out_choker).title, response.body
     assert_match products(:pearl_earrings).title, response.body
+    assert_select ".catalog-grid"
+    assert_select ".product-card"
     assert_no_match products(:quiet_shine_earrings).title, response.body
     assert_no_match products(:hidden_anklet).title, response.body
   end
@@ -34,6 +38,7 @@ class CatalogControllerTest < ActionDispatch::IntegrationTest
     assert_match "В наличии", response.body
     assert_match "Доступен к заказу", response.body
     assert_match "Нет в наличии", response.body
+    assert_select ".product-status"
   end
 
   test "index links products by slug" do

@@ -6,6 +6,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal "/catalog/chokers", catalog_category_path(categories(:chokers).slug)
+    assert_select ".catalog-page"
     assert_select "h1", "Чокеры"
   end
 
@@ -27,6 +28,8 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_match products(:moonlight_choker).title, response.body
     assert_match products(:silver_moon_choker).title, response.body
     assert_match products(:sold_out_choker).title, response.body
+    assert_select ".catalog-grid"
+    assert_select ".product-card"
     assert_no_match products(:quiet_shine_earrings).title, response.body
     assert_no_match products(:pearl_earrings).title, response.body
   end
@@ -37,6 +40,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_match "В наличии", response.body
     assert_match "Доступен к заказу", response.body
     assert_match "Нет в наличии", response.body
+    assert_select ".product-status"
   end
 
   test "show links products by slug" do

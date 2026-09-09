@@ -8,6 +8,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_equal "/products/moonlight-choker", product_path(product.slug)
+    assert_select ".product-page"
     assert_select "h1", product.title
   end
 
@@ -34,6 +35,7 @@ class ProductsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match "В наличии", response.body
+    assert_select ".product-status"
   end
 
   test "show displays made to order status" do

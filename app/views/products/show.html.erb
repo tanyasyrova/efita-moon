@@ -1,26 +1,31 @@
 <% content_for :title, "#{@product.title} — EFITA MOON" %>
 
-<%= link_to "Вернуться в каталог", catalog_path %>
+<div class="product-page">
+  <%= link_to "Вернуться в каталог", catalog_path, class: "text-link" %>
 
-<article>
-  <h1><%= @product.title %></h1>
+  <article class="product-detail">
+    <h1 class="product-detail__title"><%= @product.title %></h1>
 
-  <p><%= @product.description %></p>
+    <p class="product-detail__description"><%= @product.description %></p>
 
-  <% if @product.materials.present? %>
-    <p>Материалы: <%= @product.materials %></p>
-  <% end %>
+    <% if @product.materials.present? %>
+      <p>Материалы: <%= @product.materials %></p>
+    <% end %>
 
-  <% if @product.size.present? %>
-    <p>Размер: <%= @product.size %></p>
-  <% end %>
+    <% if @product.size.present? %>
+      <p>Размер: <%= @product.size %></p>
+    <% end %>
 
-  <p>Цена: <%= product_price(@product) %></p>
+    <p>Цена: <%= product_price(@product) %></p>
 
-  <p>Статус: <%= product_status_label(@product) %></p>
+    <p>
+      Статус:
+      <%= render "products/status", product: @product %>
+    </p>
 
-  <p>
-    Категория:
-    <%= link_to @product.category.name, catalog_category_path(@product.category.slug) %>
-  </p>
-</article>
+    <p>
+      Категория:
+      <%= link_to @product.category.name, catalog_category_path(@product.category.slug), class: "text-link" %>
+    </p>
+  </article>
+</div>

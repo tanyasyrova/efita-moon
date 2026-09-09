@@ -1,3 +1,5 @@
 @import url("variables.css");
 @import url("layout.css");
+@import url("components.css");
 @import url("public_pages.css");
+@import url("catalog.css");

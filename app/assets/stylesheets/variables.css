@@ -1,12 +1,14 @@
 :root {
-  --color-page: #f7f3ec;
-  --color-surface: #fffdf8;
-  --color-surface-muted: #eee8de;
-  --color-text: #2d2b28;
-  --color-muted: #69645d;
+  --color-page: #f4f1eb;
+  --color-surface: #faf8f4;
+  --color-surface-muted: #e8e5df;
+  --color-text: #292a2c;
+  --color-muted: #74716d;
   --color-border: #d8d1c6;
-  --color-accent: #9a9a96;
+  --color-accent: #7b7d75;
   --color-accent-dark: #555552;
+  --color-lunar: #a9adb2;
+  --color-lunar-soft: #e3e5e7;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
   --max-width: 1120px;
   --space-page: 24px;

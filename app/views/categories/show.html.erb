@@ -1,21 +1,23 @@
 <% content_for :title, "#{@category.name} — EFITA MOON" %>
 
-<%= link_to "Вернуться в каталог", catalog_path %>
+<div class="catalog-page catalog-page--category">
+  <%= link_to "Вернуться в каталог", catalog_path, class: "text-link" %>
 
-<h1><%= @category.name %></h1>
+  <header class="catalog-page__intro catalog-page__intro--compact">
+    <h1 class="catalog-page__title"><%= @category.name %></h1>
+  </header>
 
-<section>
-  <h2>Украшения</h2>
+  <section class="catalog-page__products">
+    <h2 class="catalog-page__section-title">Украшения</h2>
 
-  <% if @products.any? %>
-    <% @products.each do |product| %>
-      <article>
-        <h3><%= link_to product.title, product_path(product.slug) %></h3>
-        <p>Цена: <%= product_price(product) %></p>
-        <p>Статус: <%= product_status_label(product) %></p>
-      </article>
+    <% if @products.any? %>
+      <div class="catalog-grid">
+        <% @products.each_with_index do |product, index| %>
+          <%= render "products/card", product: product, index: index %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="empty-state">В этой категории пока нет украшений.</p>
     <% end %>
-  <% else %>
-    <p>В этой категории пока нет украшений.</p>
-  <% end %>
-</section>
+  </section>
+</div>
