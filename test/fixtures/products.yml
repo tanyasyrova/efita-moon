@@ -1,0 +1,67 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+moonlight_choker:
+  category: chokers
+  title: Лунный свет
+  slug: moonlight-choker
+  description: Украшение ручной работы.
+  size: 36 см + удлинитель 5 см
+  materials: Гематит, горный хрусталь
+  price: 9.99
+  status: available
+  published: true
+
+quiet_shine_earrings:
+  category: earrings
+  title: Тихий блеск
+  slug: quiet-shine-earrings
+  description: Серьги ручной работы.
+  size:
+  materials:
+  price: 0
+  status: unavailable
+  published: false
+
+silver_moon_choker:
+  category: chokers
+  title: Серебряная луна
+  slug: silver-moon-choker
+  description: Чокер, который можно повторить под заказ.
+  size: 36 см
+  materials: Стекло, ювелирный сплав
+  price: 2500
+  status: made_to_order
+  published: true
+
+sold_out_choker:
+  category: chokers
+  title: Ночной отблеск
+  slug: night-glow-choker
+  description: Опубликованное украшение, которого сейчас нет в наличии.
+  size:
+  materials: Стекло, сталь
+  price: 1800
+  status: unavailable
+  published: true
+
+hidden_anklet:
+  category: anklets
+  title: Тихая линия
+  slug: quiet-line-anklet
+  description: Опубликованный товар скрытой категории.
+  size: 22 см
+  materials: Ювелирный сплав
+  price: 1500
+  status: available
+  published: true
+
+pearl_earrings:
+  category: earrings
+  title: Жемчужный акцент
+  slug: pearl-accent-earrings
+  description: Опубликованный товар другой активной категории.
+  size:
+  materials:
+  price: 2100
+  status: available
+  published: true

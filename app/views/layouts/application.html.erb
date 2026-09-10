@@ -24,6 +24,27 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header class="site-header">
+      <div class="site-header__inner">
+        <%= link_to "EFITA MOON", root_path, class: "site-logo" %>
+
+        <nav class="site-nav" aria-label="Основная навигация">
+          <%= link_to "Главная", root_path, class: "site-nav__link" %>
+          <%= link_to "Каталог", catalog_path, class: "site-nav__link" %>
+          <%= link_to "О бренде", about_path, class: "site-nav__link" %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <%= yield %>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>EFITA MOON</p>
+        <p>© <%= Time.current.year %></p>
+      </div>
+    </footer>
   </body>
 </html>

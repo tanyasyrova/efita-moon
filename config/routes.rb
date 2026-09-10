@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  root "public_pages#home"
+
+  get "about", to: "public_pages#about", as: :about
+  get "catalog", to: "catalog#index", as: :catalog
+  get "catalog/:slug", to: "categories#show", as: :catalog_category
+
+  resources :products, only: :show, param: :slug
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
