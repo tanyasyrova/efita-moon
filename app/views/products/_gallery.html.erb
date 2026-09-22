@@ -1,0 +1,47 @@
+<% product_images = product.product_images.to_a %>
+<% primary_image = product.primary_image %>
+
+<section
+  class="product-gallery"
+  aria-label="Фотографии товара"
+  <% if product_images.many? %>data-controller="product-gallery"<% end %>
+>
+  <% if primary_image.present? %>
+    <figure class="product-gallery__main">
+      <%= image_tag primary_image.image.variant(:main),
+                    alt: "#{product.title} — фото 1",
+                    class: "product-gallery__main-image",
+                    data: { product_gallery_target: "mainImage" } %>
+    </figure>
+
+    <% if product_images.many? %>
+      <div class="product-gallery__thumbnails" aria-label="Выбор фотографии">
+        <% product_images.each_with_index do |product_image, index| %>
+          <% active = product_image == primary_image %>
+          <button
+            class="product-gallery__thumbnail"
+            type="button"
+            aria-label="Показать фото <%= index + 1 %>"
+            aria-pressed="<%= active %>"
+            data-product-gallery-target="thumbnail"
+            data-product-gallery-src-param="<%= url_for(product_image.image.variant(:main)) %>"
+            data-product-gallery-alt-param="<%= product.title %> — фото <%= index + 1 %>"
+            data-action="product-gallery#select"
+          >
+            <%= image_tag product_image.image.variant(:thumbnail),
+                          alt: "",
+                          class: "product-gallery__thumbnail-image",
+                          loading: "lazy" %>
+          </button>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <div class="product-gallery__placeholder" role="img" aria-label="Изображение товара скоро появится">
+      <div>
+        <p class="product-gallery__placeholder-brand">EFITA MOON</p>
+        <p class="product-gallery__placeholder-text">Изображение скоро появится</p>
+      </div>
+    </div>
+  <% end %>
+</section>

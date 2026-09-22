@@ -3,7 +3,10 @@ class ProductImage < ApplicationRecord
   MAX_IMAGE_SIZE = 10.megabytes
 
   belongs_to :product
-  has_one_attached :image
+  has_one_attached :image do |attachable|
+    attachable.variant :main, resize_to_limit: [ 1200, 1600 ]
+    attachable.variant :thumbnail, resize_to_limit: [ 240, 320 ]
+  end
 
   validates :position, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validate :acceptable_image

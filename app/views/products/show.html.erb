@@ -1,31 +1,44 @@
 <% content_for :title, "#{@product.title} — EFITA MOON" %>
 
 <div class="product-page">
-  <%= link_to "Вернуться в каталог", catalog_path, class: "text-link" %>
+  <%= link_to "Вернуться в каталог", catalog_path, class: "text-link product-page__back" %>
 
-  <article class="product-detail">
-    <h1 class="product-detail__title"><%= @product.title %></h1>
+  <article>
+    <%= render "products/gallery", product: @product %>
 
-    <p class="product-detail__description"><%= @product.description %></p>
+    <section class="product-info" aria-labelledby="product-title">
+      <p class="product-info__category">
+        <%= link_to @product.category.name, catalog_category_path(@product.category.slug), class: "text-link" %>
+      </p>
 
-    <% if @product.materials.present? %>
-      <p>Материалы: <%= @product.materials %></p>
-    <% end %>
+      <h1 class="product-info__title" id="product-title"><%= @product.title %></h1>
 
-    <% if @product.size.present? %>
-      <p>Размер: <%= @product.size %></p>
-    <% end %>
+      <div class="product-info__meta">
+        <p class="product-info__price"><%= product_price(@product) %></p>
+        <%= render "products/status", product: @product %>
+      </div>
 
-    <p>Цена: <%= product_price(@product) %></p>
+      <% if @product.description.present? %>
+        <p class="product-info__description"><%= @product.description %></p>
+      <% end %>
 
-    <p>
-      Статус:
-      <%= render "products/status", product: @product %>
-    </p>
+      <% if @product.size.present? || @product.materials.present? %>
+        <dl class="product-info__details">
+          <% if @product.size.present? %>
+            <div class="product-info__detail">
+              <dt class="product-info__detail-label">Размер</dt>
+              <dd class="product-info__detail-value"><%= @product.size %></dd>
+            </div>
+          <% end %>
 
-    <p>
-      Категория:
-      <%= link_to @product.category.name, catalog_category_path(@product.category.slug), class: "text-link" %>
-    </p>
+          <% if @product.materials.present? %>
+            <div class="product-info__detail">
+              <dt class="product-info__detail-label">Материалы</dt>
+              <dd class="product-info__detail-value"><%= @product.materials %></dd>
+            </div>
+          <% end %>
+        </dl>
+      <% end %>
+    </section>
   </article>
 </div>
