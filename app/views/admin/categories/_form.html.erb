@@ -1,0 +1,31 @@
+<%= render "admin/shared/errors", record: category %>
+
+<%= form_with model: [ :admin, category ], class: "admin-form" do |form| %>
+  <div class="admin-form__grid">
+    <div class="admin-field">
+      <%= form.label :name, "Название" %>
+      <%= form.text_field :name, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= form.label :slug, "Адрес страницы" %>
+      <%= form.text_field :slug, required: true %>
+      <p class="admin-help">Строчные латинские буквы, цифры и одиночные дефисы.</p>
+    </div>
+
+    <div class="admin-field">
+      <%= form.label :position, "Позиция" %>
+      <%= form.number_field :position, min: 0, step: 1, required: true %>
+    </div>
+
+    <div class="admin-field admin-field--checkbox">
+      <%= form.check_box :active %>
+      <%= form.label :active, "Показывать категорию на сайте" %>
+    </div>
+  </div>
+
+  <div class="admin-form__actions">
+    <%= form.submit category.persisted? ? "Сохранить категорию" : "Создать категорию", class: "admin-button" %>
+    <%= link_to "Отмена", admin_categories_path, class: "admin-link" %>
+  </div>
+<% end %>

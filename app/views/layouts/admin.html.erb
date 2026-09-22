@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title><%= content_for(:title) || "EFITA MOON — Admin" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="admin-shell">
+    <header class="admin-header">
+      <div class="admin-header__inner">
+        <%= link_to "EFITA MOON — Admin", admin_root_path, class: "admin-header__brand" %>
+
+        <nav class="admin-nav" aria-label="Административная навигация">
+          <%= link_to "Товары", admin_products_path, class: "admin-nav__link" %>
+          <%= link_to "Категории", admin_categories_path, class: "admin-nav__link" %>
+          <%= link_to "Открыть сайт", root_path, class: "admin-nav__link" %>
+        </nav>
+      </div>
+    </header>
+
+    <main class="admin-main">
+      <% if flash[:notice].present? %>
+        <p class="admin-flash admin-flash--notice"><%= flash[:notice] %></p>
+      <% end %>
+
+      <% if flash[:alert].present? %>
+        <p class="admin-flash admin-flash--alert"><%= flash[:alert] %></p>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>

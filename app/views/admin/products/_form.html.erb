@@ -1,0 +1,105 @@
+<%= render "admin/shared/errors", record: product %>
+<% existing_product_images = product.product_images.select(&:persisted?) %>
+
+<%= form_with model: [ :admin, product ], class: "admin-form" do |form| %>
+  <div class="admin-form__grid">
+    <div class="admin-field">
+      <%= form.label :title, "Название" %>
+      <%= form.text_field :title, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= form.label :slug, "Адрес страницы" %>
+      <%= form.text_field :slug, required: true %>
+      <p class="admin-help">Строчные латинские буквы, цифры и одиночные дефисы.</p>
+    </div>
+
+    <div class="admin-field">
+      <%= form.label :category_id, "Категория" %>
+      <%= form.collection_select :category_id, categories, :id, :name, prompt: "Выберите категорию" %>
+    </div>
+
+    <div class="admin-field">
+      <%= form.label :price, "Цена" %>
+      <%= form.number_field :price, min: 0, step: 0.01, required: true %>
+    </div>
+
+    <div class="admin-field">
+      <%= form.label :status, "Статус" %>
+      <%= form.select :status, product_status_options %>
+    </div>
+
+    <div class="admin-field admin-field--checkbox">
+      <%= form.check_box :published %>
+      <%= form.label :published, "Показывать товар на сайте" %>
+    </div>
+  </div>
+
+  <div class="admin-field">
+    <%= form.label :description, "Описание" %>
+    <%= form.text_area :description, rows: 6, required: true %>
+  </div>
+
+  <div class="admin-form__grid">
+    <div class="admin-field">
+      <%= form.label :size, "Размер" %>
+      <%= form.text_field :size %>
+    </div>
+
+    <div class="admin-field">
+      <%= form.label :materials, "Материалы" %>
+      <%= form.text_field :materials %>
+    </div>
+  </div>
+
+  <section class="admin-image-panel" aria-labelledby="product-images-title">
+    <div class="admin-image-panel__header">
+      <div>
+        <h2 class="admin-image-panel__title" id="product-images-title">Фотографии</h2>
+        <p class="admin-help">JPEG, PNG или WebP до 10 МБ каждый. Фотография с наименьшим номером показывается первой.</p>
+      </div>
+    </div>
+
+    <% if product.persisted? && existing_product_images.any? %>
+      <div class="admin-image-list">
+        <% existing_product_images.each do |product_image| %>
+          <article class="admin-image-card">
+            <%= image_tag product_image.image.variant(:thumbnail),
+                          alt: "#{product.title} — фото #{product_image.position}",
+                          class: "admin-image-card__image" %>
+
+            <div class="admin-field">
+              <%= label_tag "product_images_#{product_image.id}_position", "Позиция" %>
+              <%= number_field_tag "product_images[#{product_image.id}][position]",
+                                   product_image.position,
+                                   min: 0,
+                                   id: "product_images_#{product_image.id}_position" %>
+            </div>
+
+            <div class="admin-field admin-field--checkbox">
+              <%= check_box_tag "product_images[#{product_image.id}][delete]",
+                                "1",
+                                false,
+                                id: "product_images_#{product_image.id}_delete" %>
+              <%= label_tag "product_images_#{product_image.id}_delete", "Удалить" %>
+            </div>
+          </article>
+        <% end %>
+      </div>
+    <% elsif product.persisted? %>
+      <p class="admin-empty">У товара пока нет фотографий.</p>
+    <% end %>
+
+    <div class="admin-field">
+      <%= form.label :uploaded_images, "Добавить фотографии" %>
+      <%= form.file_field :uploaded_images,
+                          multiple: true,
+                          accept: ProductImage::ALLOWED_CONTENT_TYPES.join(",") %>
+    </div>
+  </section>
+
+  <div class="admin-form__actions">
+    <%= form.submit product.persisted? ? "Сохранить товар" : "Создать товар", class: "admin-button" %>
+    <%= link_to "Отмена", admin_products_path, class: "admin-link" %>
+  </div>
+<% end %>

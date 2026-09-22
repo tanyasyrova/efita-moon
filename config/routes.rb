@@ -7,6 +7,13 @@ Rails.application.routes.draw do
 
   resources :products, only: :show, param: :slug
 
+  namespace :admin do
+    root "products#index"
+
+    resources :products, except: :show
+    resources :categories, except: :show
+  end
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
