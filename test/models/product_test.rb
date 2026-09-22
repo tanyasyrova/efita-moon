@@ -195,6 +195,62 @@ class ProductTest < ActiveSupport::TestCase
     assert_not_includes Product.unavailable, made_to_order_product
   end
 
+  test "has many product images" do
+    product = create_product
+    product_image = create_product_image(product: product)
+
+    assert_includes product.product_images, product_image
+  end
+
+  test "destroying product destroys associated product images" do
+    product = create_product
+    product_image = create_product_image(product: product)
+
+    product.destroy!
+
+    assert_not ProductImage.exists?(product_image.id)
+  end
+
+  test "product images are ordered by position and id" do
+    product = create_product
+    third = create_product_image(product: product, position: 2)
+    first = create_product_image(product: product, position: 0)
+    second = create_product_image(product: product, position: 1)
+    same_position_first = create_product_image(product: product, position: 3)
+    same_position_second = create_product_image(product: product, position: 3)
+
+    assert_equal [
+      first,
+      second,
+      third,
+      same_position_first,
+      same_position_second
+    ], product.product_images.reload.to_a
+  end
+
+  test "primary_image returns nil when product has no images" do
+    product = create_product
+
+    assert_nil product.primary_image
+  end
+
+  test "primary_image returns first product image by association ordering" do
+    product = create_product
+    create_product_image(product: product, position: 2)
+    primary_image = create_product_image(product: product, position: 0)
+    create_product_image(product: product, position: 1)
+
+    assert_equal primary_image, product.primary_image
+  end
+
+  test "primary_image is deterministic when positions match" do
+    product = create_product
+    first_image = create_product_image(product: product, position: 0)
+    create_product_image(product: product, position: 0)
+
+    assert_equal first_image, product.primary_image
+  end
+
   private
 
   def build_product(attributes = {})
@@ -213,6 +269,25 @@ class ProductTest < ActiveSupport::TestCase
 
   def create_product(attributes = {})
     build_product(attributes).tap(&:save!)
+  end
+
+  def create_product_image(attributes = {})
+    filename = attributes.delete(:filename) || "test.jpg"
+    content_type = attributes.delete(:content_type) || "image/jpeg"
+    content = attributes.delete(:content) || "image data"
+    product = attributes.delete(:product) || create_product
+
+    ProductImage.new({
+      product: product,
+      position: 0
+    }.merge(attributes)).tap do |product_image|
+      product_image.image.attach(
+        io: StringIO.new(content),
+        filename: filename,
+        content_type: content_type
+      )
+      product_image.save!
+    end
   end
 
   def create_category(attributes = {})

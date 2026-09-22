@@ -2,6 +2,9 @@ class Product < ApplicationRecord
   SLUG_FORMAT = /\A[a-z0-9]+(?:-[a-z0-9]+)*\z/
 
   belongs_to :category
+  has_many :product_images,
+           -> { order(position: :asc, id: :asc) },
+           dependent: :destroy
 
   enum :status, {
     available: "available",
@@ -21,4 +24,8 @@ class Product < ApplicationRecord
     published.joins(:category).merge(Category.active)
   }
   scope :newest_first, -> { order(created_at: :desc, id: :desc) }
+
+  def primary_image
+    product_images.first
+  end
 end
