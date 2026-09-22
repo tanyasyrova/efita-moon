@@ -1,0 +1,49 @@
+<% content_for :title, "Товары — EFITA MOON Admin" %>
+
+<section class="admin-section">
+  <div class="admin-section__header">
+    <div>
+      <p class="admin-section__eyebrow">Каталог</p>
+      <h1 class="admin-section__title">Товары</h1>
+    </div>
+
+    <%= link_to "Новый товар", new_admin_product_path, class: "admin-button" %>
+  </div>
+
+  <% if @products.any? %>
+    <div class="admin-table-wrap">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Название</th>
+            <th>Категория</th>
+            <th>Цена</th>
+            <th>Статус</th>
+            <th>Публикация</th>
+            <th>Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr>
+              <td><%= link_to product.title, edit_admin_product_path(product), class: "admin-link" %></td>
+              <td><%= product.category.name %></td>
+              <td><%= product_price(product) %></td>
+              <td><%= product_status_label(product) %></td>
+              <td><%= product.published? ? "Опубликован" : "Скрыт" %></td>
+              <td class="admin-table__actions">
+                <%= link_to "Редактировать", edit_admin_product_path(product), class: "admin-link" %>
+                <%= button_to "Удалить",
+                              admin_product_path(product),
+                              method: :delete,
+                              class: "admin-link admin-link--danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p class="admin-empty">Товары пока не добавлены.</p>
+  <% end %>
+</section>

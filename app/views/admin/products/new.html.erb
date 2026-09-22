@@ -1,0 +1,12 @@
+<% content_for :title, "Новый товар — EFITA MOON Admin" %>
+
+<section class="admin-section">
+  <div class="admin-section__header">
+    <div>
+      <p class="admin-section__eyebrow">Каталог</p>
+      <h1 class="admin-section__title">Новый товар</h1>
+    </div>
+  </div>
+
+  <%= render "form", product: @product, categories: @categories %>
+</section>
