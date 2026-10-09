@@ -17,7 +17,12 @@
         <ul class="category-nav__list">
           <% @categories.each do |category| %>
             <li class="category-nav__item">
-              <%= link_to category.name, catalog_category_path(category.slug), class: "category-nav__link" %>
+              <%= link_to catalog_category_path(category.slug), class: "category-nav__link" do %>
+                <span class="category-nav__name"><%= category.name %></span>
+                <% if category.subtitle.present? %>
+                  <span class="category-nav__subtitle"><%= category.subtitle %></span>
+                <% end %>
+              <% end %>
             </li>
           <% end %>
         </ul>

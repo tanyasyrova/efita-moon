@@ -166,6 +166,13 @@
   gap: 10px 14px;
 }
 
+.admin-table__note {
+  margin: 8px 0 0;
+  color: var(--color-muted);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
 .admin-table__actions form {
   margin: 0;
 }
@@ -204,6 +211,10 @@
 .admin-field {
   display: grid;
   gap: 8px;
+}
+
+.admin-field--wide {
+  grid-column: 1 / -1;
 }
 
 .admin-field label,

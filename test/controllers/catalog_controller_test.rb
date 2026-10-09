@@ -14,9 +14,19 @@ class CatalogControllerTest < ActionDispatch::IntegrationTest
     get catalog_path
 
     assert_select ".category-nav[aria-label='Категории каталога']"
-    assert_select "a[href=?]", catalog_category_path(categories(:chokers).slug), text: "Чокеры"
-    assert_select "a[href=?]", catalog_category_path(categories(:earrings).slug), text: "Серьги"
-    assert_no_match categories(:anklets).name, response.body
+    assert_select "a[href=?]", catalog_category_path(categories(:neck).slug), text: /На шею/
+    assert_select "a[href=?]", catalog_category_path(categories(:ears).slug), text: /На уши/
+    assert_match "Чокеры · Колье · Сотуары", response.body
+    assert_no_match categories(:archive).name, response.body
+  end
+
+  test "index does not render empty category subtitle" do
+    categories(:bags).update!(subtitle: nil)
+
+    get catalog_path
+
+    assert_response :success
+    assert_select "a[href=?] .category-nav__subtitle", catalog_category_path(categories(:bags).slug), count: 0
   end
 
   test "index shows published products from active categories only" do

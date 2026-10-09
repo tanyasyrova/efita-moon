@@ -5,6 +5,9 @@
 
   <header class="catalog-page__intro catalog-page__intro--compact">
     <h1 class="catalog-page__title"><%= @category.name %></h1>
+    <% if @category.subtitle.present? %>
+      <p class="catalog-page__subtitle"><%= @category.subtitle %></p>
+    <% end %>
   </header>
 
   <section class="catalog-page__products">

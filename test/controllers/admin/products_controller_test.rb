@@ -3,8 +3,8 @@ require "test_helper"
 module Admin
   class ProductsControllerTest < ActionDispatch::IntegrationTest
     setup do
-      @category = categories(:chokers)
-      @other_category = categories(:earrings)
+      @category = categories(:neck)
+      @other_category = categories(:ears)
     end
 
     test "index requires authentication" do

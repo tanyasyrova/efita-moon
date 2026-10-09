@@ -26,7 +26,12 @@
         <tbody>
           <% @categories.each do |category| %>
             <tr>
-              <td><%= link_to category.name, edit_admin_category_path(category), class: "admin-link" %></td>
+              <td>
+                <%= link_to category.name, edit_admin_category_path(category), class: "admin-link" %>
+                <% if category.subtitle.present? %>
+                  <p class="admin-table__note"><%= category.subtitle %></p>
+                <% end %>
+              </td>
               <td><%= category.slug %></td>
               <td><%= category.position %></td>
               <td><%= category.active? ? "Активна" : "Неактивна" %></td>

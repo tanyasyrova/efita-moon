@@ -49,7 +49,7 @@ module Admin
     end
 
     def category_params
-      params.require(:category).permit(:name, :slug, :position, :active)
+      params.require(:category).permit(:name, :slug, :subtitle, :position, :active)
     end
   end
 end

@@ -32,13 +32,14 @@ module Admin
       end
 
       assert_response :success
-      assert_match categories(:chokers).name, response.body
-      assert_match categories(:anklets).name, response.body
+      assert_match categories(:neck).name, response.body
+      assert_match categories(:neck).subtitle, response.body
+      assert_match categories(:archive).name, response.body
       assert_match "Активна", response.body
       assert_match "Неактивна", response.body
       assert_select "a[href=?]", new_admin_category_path, text: "Новая категория"
-      assert_select "a[href=?]", edit_admin_category_path(categories(:chokers)), text: "Редактировать"
-      assert_select "form[action=?]", admin_category_path(categories(:chokers))
+      assert_select "a[href=?]", edit_admin_category_path(categories(:neck)), text: "Редактировать"
+      assert_select "form[action=?]", admin_category_path(categories(:neck))
     end
 
     test "creates valid category" do
@@ -51,7 +52,8 @@ module Admin
       end
 
       assert_redirected_to admin_categories_path
-      assert Category.exists?(slug: "admin-category")
+      category = Category.find_by!(slug: "admin-category")
+      assert_equal "Тестовая подпись", category.subtitle
     end
 
     test "does not create invalid category" do
@@ -67,8 +69,21 @@ module Admin
       assert_match "Проверьте поля формы", response.body
     end
 
+    test "creates category without subtitle" do
+      assert_difference("Category.count", 1) do
+        with_admin_credentials do
+          post admin_categories_path,
+               params: { category: valid_category_params(slug: "category-without-subtitle", subtitle: "") },
+               headers: admin_auth_headers
+        end
+      end
+
+      assert_redirected_to admin_categories_path
+      assert_equal "", Category.find_by!(slug: "category-without-subtitle").subtitle
+    end
+
     test "updates category" do
-      category = categories(:earrings)
+      category = categories(:ears)
 
       with_admin_credentials do
         patch admin_category_path(category),
@@ -76,6 +91,7 @@ module Admin
                 category: valid_category_params(
                   name: "Новая категория",
                   slug: "new-category",
+                  subtitle: "Новая подпись",
                   position: 10,
                   active: "0"
                 )
@@ -87,6 +103,7 @@ module Admin
       category.reload
       assert_equal "Новая категория", category.name
       assert_equal "new-category", category.slug
+      assert_equal "Новая подпись", category.subtitle
       assert_equal 10, category.position
       assert_not category.active?
     end
@@ -104,7 +121,7 @@ module Admin
     end
 
     test "does not destroy category with products" do
-      category = categories(:chokers)
+      category = categories(:neck)
 
       assert_no_difference("Category.count") do
         assert_no_difference("Product.count") do
@@ -153,6 +170,7 @@ module Admin
       {
         name: "Админ категория",
         slug: "admin-category",
+        subtitle: "Тестовая подпись",
         position: 3,
         active: "1"
       }.merge(attributes)

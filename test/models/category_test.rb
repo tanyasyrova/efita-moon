@@ -73,6 +73,11 @@ class CategoryTest < ActiveSupport::TestCase
     assert_includes category.errors[:active], "is not included in the list"
   end
 
+  test "subtitle is optional" do
+    assert build_category(subtitle: nil).valid?
+    assert build_category(subtitle: "").valid?
+  end
+
   test "active scope returns active categories" do
     active_category = create_category(name: "Колье", slug: "necklaces", active: true)
     inactive_category = create_category(name: "Браслеты", slug: "bracelets", active: false)

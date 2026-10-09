@@ -2,12 +2,22 @@ require "test_helper"
 
 class CategoriesControllerTest < ActionDispatch::IntegrationTest
   test "show opens active category by slug" do
-    get catalog_category_path(categories(:chokers).slug)
+    get catalog_category_path(categories(:neck).slug)
 
     assert_response :success
-    assert_equal "/catalog/chokers", catalog_category_path(categories(:chokers).slug)
+    assert_equal "/catalog/neck", catalog_category_path(categories(:neck).slug)
     assert_select ".catalog-page"
-    assert_select "h1", "Чокеры"
+    assert_select "h1", "На шею"
+    assert_match "Чокеры · Колье · Сотуары", response.body
+  end
+
+  test "show does not render empty category subtitle" do
+    categories(:bags).update!(subtitle: nil)
+
+    get catalog_category_path(categories(:bags).slug)
+
+    assert_response :success
+    assert_select ".catalog-page__subtitle", count: 0
   end
 
   test "show returns not found for unknown slug" do
@@ -17,13 +27,13 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show returns not found for inactive category" do
-    get catalog_category_path(categories(:anklets).slug)
+    get catalog_category_path(categories(:archive).slug)
 
     assert_response :not_found
   end
 
   test "show includes only published products from selected category" do
-    get catalog_category_path(categories(:chokers).slug)
+    get catalog_category_path(categories(:neck).slug)
 
     assert_match products(:moonlight_choker).title, response.body
     assert_match products(:silver_moon_choker).title, response.body
@@ -35,7 +45,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show displays all statuses for category products" do
-    get catalog_category_path(categories(:chokers).slug)
+    get catalog_category_path(categories(:neck).slug)
 
     assert_match "В наличии", response.body
     assert_match "Доступен к заказу", response.body
@@ -44,7 +54,7 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "show links products by slug" do
-    get catalog_category_path(categories(:chokers).slug)
+    get catalog_category_path(categories(:neck).slug)
 
     assert_select "a[href=?]", product_path(products(:moonlight_choker).slug), text: products(:moonlight_choker).title
     assert_select "a[href=?]", product_path(products(:silver_moon_choker).slug), text: products(:silver_moon_choker).title
