@@ -1,19 +1,42 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-chokers:
-  name: Чокеры
-  slug: chokers
+neck:
+  name: На шею
+  slug: neck
+  subtitle: Чокеры · Колье · Сотуары
+  position: 0
+  active: true
+
+ears:
+  name: На уши
+  slug: ears
+  subtitle: Серьги
   position: 1
   active: true
 
-earrings:
-  name: Серьги
-  slug: earrings
+hands:
+  name: На руки
+  slug: hands
+  subtitle: Браслеты
   position: 2
   active: true
 
-anklets:
-  name: Анклеты
-  slug: anklets
-  position: 6
+ankles:
+  name: На ноги
+  slug: ankles
+  subtitle: Анклеты
+  position: 3
+  active: true
+
+bags:
+  name: На сумку
+  slug: bags
+  subtitle: Обвесы · Подвески
+  position: 4
+  active: true
+
+archive:
+  name: Архив
+  slug: archive
+  position: 99
   active: false

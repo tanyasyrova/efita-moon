@@ -1,7 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 moonlight_choker:
-  category: chokers
+  category: neck
   title: Лунный свет
   slug: moonlight-choker
   description: Украшение ручной работы.
@@ -12,7 +12,7 @@ moonlight_choker:
   published: true
 
 quiet_shine_earrings:
-  category: earrings
+  category: ears
   title: Тихий блеск
   slug: quiet-shine-earrings
   description: Серьги ручной работы.
@@ -23,7 +23,7 @@ quiet_shine_earrings:
   published: false
 
 silver_moon_choker:
-  category: chokers
+  category: neck
   title: Серебряная луна
   slug: silver-moon-choker
   description: Чокер, который можно повторить под заказ.
@@ -34,7 +34,7 @@ silver_moon_choker:
   published: true
 
 sold_out_choker:
-  category: chokers
+  category: neck
   title: Ночной отблеск
   slug: night-glow-choker
   description: Опубликованное украшение, которого сейчас нет в наличии.
@@ -45,7 +45,7 @@ sold_out_choker:
   published: true
 
 hidden_anklet:
-  category: anklets
+  category: archive
   title: Тихая линия
   slug: quiet-line-anklet
   description: Опубликованный товар скрытой категории.
@@ -56,7 +56,7 @@ hidden_anklet:
   published: true
 
 pearl_earrings:
-  category: earrings
+  category: ears
   title: Жемчужный акцент
   slug: pearl-accent-earrings
   description: Опубликованный товар другой активной категории.

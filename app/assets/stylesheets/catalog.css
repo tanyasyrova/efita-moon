@@ -49,6 +49,8 @@
 }
 
 .category-nav__link {
+  display: grid;
+  gap: 5px;
   color: var(--color-muted);
   font-size: 15px;
   text-decoration-color: var(--color-lunar);
@@ -57,6 +59,26 @@
 
 .category-nav__link:hover {
   color: var(--color-text);
+}
+
+.category-nav__name {
+  color: var(--color-text);
+}
+
+.category-nav__subtitle,
+.catalog-page__subtitle {
+  color: var(--color-muted);
+}
+
+.category-nav__subtitle {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.catalog-page__subtitle {
+  margin: 16px 0 0;
+  font-size: 18px;
+  line-height: 1.45;
 }
 
 .catalog-page__section-title {

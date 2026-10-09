@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_10_082802) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_09_090100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -48,6 +48,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_082802) do
     t.string "name", null: false
     t.integer "position", default: 0, null: false
     t.string "slug", null: false
+    t.string "subtitle"
     t.datetime "updated_at", null: false
     t.index ["active"], name: "index_categories_on_active"
     t.index ["name"], name: "index_categories_on_name", unique: true
@@ -83,7 +84,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_10_082802) do
     t.index ["slug"], name: "index_products_on_slug", unique: true
     t.index ["status"], name: "index_products_on_status"
     t.check_constraint "price >= 0::numeric", name: "products_price_non_negative"
-    t.check_constraint "status::text = ANY (ARRAY['available'::character varying::text, 'made_to_order'::character varying::text, 'unavailable'::character varying::text])", name: "products_status_allowed"
+    t.check_constraint "status::text = ANY (ARRAY['available'::character varying, 'made_to_order'::character varying, 'unavailable'::character varying]::text[])", name: "products_status_allowed"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
